@@ -44,11 +44,13 @@
 <body class="p-4 md:p-10">
 
     <div class="max-w-6xl mx-auto bg-white shadow-2xl rounded-[2rem] overflow-hidden border-4 border-white">
+        <!-- Header -->
         <header class="gradient-box p-10 text-white text-center">
             <h1 class="russian-title text-5xl md:text-6xl mb-2">Голубой домик</h1>
             <p class="text-xl text-blue-100 font-light tracking-widest uppercase">Борис Кустодиев • Тема: Мой день</p>
         </header>
 
+        <!-- Navigation -->
         <nav class="flex flex-wrap bg-blue-900 text-blue-200">
             <button onclick="switchTab('task1')" id="btn-task1" class="tab-btn flex-1 py-5 font-bold border-b-4 border-yellow-400 text-yellow-400 transition">ЗАДАНИЕ 1</button>
             <button onclick="switchTab('task2')" id="btn-task2" class="tab-btn flex-1 py-5 font-bold border-b-4 border-transparent hover:text-white transition">ЗАДАНИЕ 2</button>
@@ -58,10 +60,17 @@
 
         <main class="p-6 md:p-12">
             
+            <!-- Task 1: Vocabulary -->
             <div id="task1" class="tab-content active">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="relative rounded-3xl shadow-2xl overflow-hidden border-8 border-blue-50">
-                        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kustodiev_GoluboyDomik.jpg" alt="Голубой домик" class="w-full h-auto">
+                    <div class="relative rounded-3xl shadow-2xl overflow-hidden border-8 border-blue-50 bg-gray-100 min-h-[400px]">
+                        
+                        <!-- ẢNH ĐÃ ĐƯỢC XỬ LÝ CHỐNG CHẶN (NO-REFERRER) -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kustodiev_Blue_house.jpg/1024px-Kustodiev_Blue_house.jpg" 
+                             alt="Голубой домик" 
+                             class="w-full h-auto object-contain"
+                             referrerpolicy="no-referrer" 
+                             crossorigin="anonymous">
                         
                         <div class="hotspot" style="top: 25%; left: 45%;" onclick="showWord('Дом', 'Это мой красивый голубой дом.')"></div>
                         <div class="hotspot" style="top: 45%; left: 45%;" onclick="showWord('Балкон', 'Мы любим сидеть на балконе.')"></div>
@@ -69,6 +78,7 @@
                         <div class="hotspot" style="top: 48%; left: 50%;" onclick="showWord('Самовар', 'На столе стоит старый самовар.')"></div>
                         <div class="hotspot" style="top: 85%; left: 80%;" onclick="showWord('Собака', 'Наша собака гуляет в саду.')"></div>
                     </div>
+                    
                     <div class="text-center p-10 bg-blue-50 rounded-[3rem]">
                         <h2 class="text-3xl font-bold text-blue-900 mb-6">Словарь в картинках</h2>
                         <div id="word-display" class="min-h-[150px] flex flex-col justify-center">
@@ -78,6 +88,7 @@
                 </div>
             </div>
 
+            <!-- Task 2: Quiz -->
             <div id="task2" class="tab-content">
                 <div class="max-w-3xl mx-auto space-y-6">
                     <h2 class="text-3xl font-bold text-center text-blue-900 mb-8 underline decoration-yellow-400">Ответьте на вопросы</h2>
@@ -85,6 +96,7 @@
                 </div>
             </div>
 
+            <!-- Task 3: Personal Questions -->
             <div id="task3" class="tab-content">
                 <div class="max-w-4xl mx-auto bg-gray-50 p-8 rounded-[2rem] border-2 border-blue-100 shadow-inner">
                     <h2 class="text-3xl font-bold text-center text-blue-900 mb-8 italic">О себе и своём дне</h2>
@@ -93,6 +105,7 @@
                 </div>
             </div>
 
+            <!-- Task 4: Monolog -->
             <div id="task4" class="tab-content">
                 <div class="grid lg:grid-cols-2 gap-8">
                     <div class="bg-yellow-50 p-8 rounded-[2rem] border-2 border-yellow-200">
@@ -111,7 +124,6 @@
     </div>
 
     <script>
-        // Quiz Data (Task 2)
         const quizData = [
             { q: "Что вы видите картине «Голубой домик»?", a: ["Современный город", "Старый русский дом", "Пляж"], c: 1 },
             { q: "Кто пьет чай на балконе второго этажа?", a: ["Дети", "Мужчина и женщина", "Кошка"], c: 1 },
@@ -119,14 +131,12 @@
             { q: "Какая атмосфера дня на этой картинке?", a: ["Шумная", "Спокойная и солнечная", "Грустная"], c: 1 }
         ];
 
-        // Chat Data (Task 3)
         const chatSteps = [
             { q: "Какое время дня вы считаете самым приятным и спокойным?", o: ["Утро", "День", "Вечер"] },
             { q: "Что вы обычно делаете, чтобы расслабиться в конце дня?", o: ["Пью чай", "Читаю книгу", "Слушаю музыку"] },
             { q: "Где в вашем доме вам нравится проводить свободное время?", o: ["На балконе", "В саду", "У окна"] }
         ];
 
-        // Monolog Phrases (Task 4)
         const phrases = [
             "Сегодня прекрасное солнечное утро.",
             "Я сижу на балконе нашего голубого домика и пью горячий чай.",
@@ -229,7 +239,6 @@
             myStory = []; 
             document.getElementById('final-monolog').innerText = "..."; 
         }
-
     </script>
 </body>
 </html>
