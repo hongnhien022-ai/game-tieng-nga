@@ -8,49 +8,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=PT+Sans:wght@400;700&display=swap');
-        
         body { font-family: 'PT Sans', sans-serif; background-color: #e0f2fe; }
         .russian-title { font-family: 'Marck Script', cursive; }
-        
         .hotspot {
-            position: absolute;
-            width: 28px;
-            height: 28px;
-            background: rgba(30, 58, 138, 0.8);
-            border: 2px solid #fbbf24;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            animation: pulse 2s infinite;
+            position: absolute; width: 28px; height: 28px;
+            background: rgba(30, 58, 138, 0.8); border: 2px solid #fbbf24;
+            border-radius: 50%; cursor: pointer; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center;
+            color: white; animation: pulse 2s infinite; z-index: 10;
         }
-
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
             100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
         }
-
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: slideIn 0.4s ease-out; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
         .gradient-box { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        .img-container { position: relative; width: 100%; max-width: 800px; margin: auto; }
     </style>
 </head>
 <body class="p-4 md:p-10">
-
     <div class="max-w-6xl mx-auto bg-white shadow-2xl rounded-[2rem] overflow-hidden border-4 border-white">
-        <!-- Header -->
         <header class="gradient-box p-10 text-white text-center">
             <h1 class="russian-title text-5xl md:text-6xl mb-2">Голубой домик</h1>
             <p class="text-xl text-blue-100 font-light tracking-widest uppercase">Борис Кустодиев • Тема: Мой день</p>
         </header>
 
-        <!-- Navigation -->
         <nav class="flex flex-wrap bg-blue-900 text-blue-200">
             <button onclick="switchTab('task1')" id="btn-task1" class="tab-btn flex-1 py-5 font-bold border-b-4 border-yellow-400 text-yellow-400 transition">ЗАДАНИЕ 1</button>
             <button onclick="switchTab('task2')" id="btn-task2" class="tab-btn flex-1 py-5 font-bold border-b-4 border-transparent hover:text-white transition">ЗАДАНИЕ 2</button>
@@ -59,18 +44,12 @@
         </nav>
 
         <main class="p-6 md:p-12">
-            
-            <!-- Task 1: Vocabulary -->
             <div id="task1" class="tab-content active">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="relative rounded-3xl shadow-2xl overflow-hidden border-8 border-blue-50 bg-gray-100 min-h-[400px]">
-                        
-                        <!-- ẢNH ĐÃ ĐƯỢC XỬ LÝ CHỐNG CHẶN (NO-REFERRER) -->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Kustodiev_Blue_house.jpg/1024px-Kustodiev_Blue_house.jpg" 
-                             alt="Голубой домик" 
-                             class="w-full h-auto object-contain"
-                             referrerpolicy="no-referrer" 
-                             crossorigin="anonymous">
+                    <div class="img-container rounded-3xl shadow-2xl overflow-hidden border-8 border-blue-50">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Kustodiev_Blue_house.jpg" 
+                             alt="Голубой домик" class="w-full h-auto block" 
+                             onerror="this.src='https://raw.githubusercontent.com/hongnhien022-ai/game-tieng-nga/main/image.png'">
                         
                         <div class="hotspot" style="top: 25%; left: 45%;" onclick="showWord('Дом', 'Это мой красивый голубой дом.')"></div>
                         <div class="hotspot" style="top: 45%; left: 45%;" onclick="showWord('Балкон', 'Мы любим сидеть на балконе.')"></div>
@@ -78,7 +57,6 @@
                         <div class="hotspot" style="top: 48%; left: 50%;" onclick="showWord('Самовар', 'На столе стоит старый самовар.')"></div>
                         <div class="hotspot" style="top: 85%; left: 80%;" onclick="showWord('Собака', 'Наша собака гуляет в саду.')"></div>
                     </div>
-                    
                     <div class="text-center p-10 bg-blue-50 rounded-[3rem]">
                         <h2 class="text-3xl font-bold text-blue-900 mb-6">Словарь в картинках</h2>
                         <div id="word-display" class="min-h-[150px] flex flex-col justify-center">
@@ -88,7 +66,6 @@
                 </div>
             </div>
 
-            <!-- Task 2: Quiz -->
             <div id="task2" class="tab-content">
                 <div class="max-w-3xl mx-auto space-y-6">
                     <h2 class="text-3xl font-bold text-center text-blue-900 mb-8 underline decoration-yellow-400">Ответьте на вопросы</h2>
@@ -96,7 +73,6 @@
                 </div>
             </div>
 
-            <!-- Task 3: Personal Questions -->
             <div id="task3" class="tab-content">
                 <div class="max-w-4xl mx-auto bg-gray-50 p-8 rounded-[2rem] border-2 border-blue-100 shadow-inner">
                     <h2 class="text-3xl font-bold text-center text-blue-900 mb-8 italic">О себе и своём дне</h2>
@@ -105,7 +81,6 @@
                 </div>
             </div>
 
-            <!-- Task 4: Monolog -->
             <div id="task4" class="tab-content">
                 <div class="grid lg:grid-cols-2 gap-8">
                     <div class="bg-yellow-50 p-8 rounded-[2rem] border-2 border-yellow-200">
@@ -119,7 +94,6 @@
                     </div>
                 </div>
             </div>
-
         </main>
     </div>
 
@@ -203,6 +177,7 @@
 
         function loadChatOptions() {
             const optBox = document.getElementById('chat-options');
+            if(!optBox) return;
             optBox.innerHTML = chatSteps[chatIdx].o.map(o => `<button onclick="nextChat('${o}')" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 shadow-md transition">${o}</button>`).join('');
         }
 
@@ -211,7 +186,6 @@
             const chatBox = document.getElementById('chat-box');
             chatBox.scrollTop = chatBox.scrollHeight;
             chatIdx++;
-            
             document.getElementById('chat-options').innerHTML = "";
             if(chatIdx < chatSteps.length) {
                 setTimeout(() => { addBotMessage(chatSteps[chatIdx].q); loadChatOptions(); }, 600);
