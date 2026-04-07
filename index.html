@@ -1,184 +1,234 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Học Tiếng Nga: Ngôi nhà màu xanh</title>
+    <title>Интерактивная игра: Голубой домик</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-        body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; }
+        @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=PT+Sans:wght@400;700&display=swap');
+        
+        body { font-family: 'PT Sans', sans-serif; background-color: #e0f2fe; }
+        .russian-title { font-family: 'Marck Script', cursive; }
+        
         .hotspot {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #3b82f6;
-            border: 2px solid white;
+            width: 28px;
+            height: 28px;
+            background: rgba(30, 58, 138, 0.8);
+            border: 2px solid #fbbf24;
             border-radius: 50%;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            animation: pulse 2s infinite;
         }
-        .hotspot:hover { transform: scale(1.5); background: #ef4444; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+        }
+
         .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .tab-content.active { display: block; animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .gradient-box { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen">
+<body class="p-4 md:p-10">
 
-    <div class="max-w-5xl mx-auto my-8 bg-white shadow-2xl rounded-3xl overflow-hidden">
-        <!-- Header -->
-        <div class="bg-blue-700 p-8 text-white text-center">
-            <h1 class="text-3xl font-bold uppercase tracking-wider">Trò chơi tương tác: МОЙ ДЕНЬ</h1>
-            <p class="opacity-80 mt-2">Dựa trên bức tranh "Голубой домик" của Boris Kustodiev</p>
-        </div>
+    <div class="max-w-6xl mx-auto bg-white shadow-2xl rounded-[2rem] overflow-hidden border-4 border-white">
+        <header class="gradient-box p-10 text-white text-center">
+            <h1 class="russian-title text-5xl md:text-6xl mb-2">Голубой домик</h1>
+            <p class="text-xl text-blue-100 font-light tracking-widest uppercase">Борис Кустодиев • Тема: Мой день</p>
+        </header>
 
-        <!-- Tabs -->
-        <div class="flex border-b bg-blue-50">
-            <button onclick="openTab('study')" id="tab-study" class="flex-1 py-4 font-bold text-blue-700 border-b-4 border-blue-700">1. KHÁM PHÁ TRANH</button>
-            <button onclick="openTab('quiz')" id="tab-quiz" class="flex-1 py-4 font-bold text-gray-500 hover:text-blue-700">2. THỬ THÁCH NHỚ TỪ</button>
-            <button onclick="openTab('speak')" id="tab-speak" class="flex-1 py-4 font-bold text-gray-500 hover:text-blue-700">3. LUYỆN NÓI (MONOLOG)</button>
-        </div>
+        <nav class="flex flex-wrap bg-blue-900 text-blue-200">
+            <button onclick="switchTab('task1')" id="btn-task1" class="tab-btn flex-1 py-5 font-bold border-b-4 border-yellow-400 text-yellow-400 transition">ЗАДАНИЕ 1</button>
+            <button onclick="switchTab('task2')" id="btn-task2" class="tab-btn flex-1 py-5 font-bold border-b-4 border-transparent hover:text-white transition">ЗАДАНИЕ 2</button>
+            <button onclick="switchTab('task3')" id="btn-task3" class="tab-btn flex-1 py-5 font-bold border-b-4 border-transparent hover:text-white transition">ЗАДАНИЕ 3</button>
+            <button onclick="switchTab('task4')" id="btn-task4" class="tab-btn flex-1 py-5 font-bold border-b-4 border-transparent hover:text-white transition">ЗАДАНИЕ 4</button>
+        </nav>
 
-        <!-- Main Content -->
-        <div class="p-8">
+        <main class="p-6 md:p-12">
             
-            <!-- Tab 1: Study -->
-            <div id="study" class="tab-content active">
-                <div class="grid md:grid-cols-2 gap-8 items-start">
-                    <div class="relative rounded-2xl overflow-hidden shadow-lg border-4 border-white">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Kustodiev_Blue_house.jpg" alt="Painting" class="w-full h-auto">
-                        
-                        <!-- Hotspots -->
-                        <div class="hotspot" style="top: 25%; left: 45%;" onclick="showDef('Дом', 'Ngôi nhà')"></div>
-                        <div class="hotspot" style="top: 45%; left: 45%;" onclick="showDef('Балкон', 'Ban công')"></div>
-                        <div class="hotspot" style="top: 50%; left: 52%;" onclick="showDef('Пить чай', 'Uống trà')"></div>
-                        <div class="hotspot" style="top: 75%; left: 15%;" onclick="showDef('Лошадь', 'Con ngựa')"></div>
-                        <div class="hotspot" style="top: 85%; left: 80%;" onclick="showDef('Собака', 'Con chó')"></div>
-                        <div class="hotspot" style="top: 48%; left: 50%;" onclick="showDef('Самовар', 'Ấm trà Samovar')"></div>
+            <div id="task1" class="tab-content active">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="relative rounded-3xl shadow-2xl overflow-hidden border-8 border-blue-50">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Kustodiev_Blue_house.jpg" class="w-full h-auto">
+                        <div class="hotspot" style="top: 25%; left: 45%;" onclick="showWord('Дом', 'Это мой красивый голубой дом.')"></div>
+                        <div class="hotspot" style="top: 45%; left: 45%;" onclick="showWord('Балкон', 'Мы любим сидеть на балконе.')"></div>
+                        <div class="hotspot" style="top: 50%; left: 52%;" onclick="showWord('Пить чай', 'Утром я пью чай с семьёй.')"></div>
+                        <div class="hotspot" style="top: 48%; left: 50%;" onclick="showWord('Самовар', 'На столе стоит старый самовар.')"></div>
+                        <div class="hotspot" style="top: 85%; left: 80%;" onclick="showWord('Собака', 'Наша собака гуляет в саду.')"></div>
                     </div>
-                    
-                    <div class="bg-blue-50 p-6 rounded-2xl h-full flex flex-col justify-center text-center">
-                        <h3 class="text-xl font-bold text-blue-900 mb-4">Từ vựng trong tranh</h3>
-                        <div id="def-box" class="py-12 px-4 bg-white rounded-xl shadow-inner">
-                            <p class="text-gray-400 italic">Nhấn vào các điểm xanh trên tranh để học từ!</p>
+                    <div class="text-center p-10 bg-blue-50 rounded-[3rem]">
+                        <h2 class="text-3xl font-bold text-blue-900 mb-6">Словарь в картинках</h2>
+                        <div id="word-display" class="min-h-[150px] flex flex-col justify-center">
+                            <p class="text-blue-400 italic">Нажмите на точки на картине!</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tab 2: Quiz -->
-            <div id="quiz" class="tab-content">
-                <div class="max-w-2xl mx-auto">
-                    <div id="quiz-area" class="space-y-6">
-                        <!-- Questions will load here -->
-                    </div>
-                    <div id="quiz-feedback" class="mt-6 hidden p-4 rounded-xl text-center font-bold"></div>
+            <div id="task2" class="tab-content">
+                <div class="max-w-3xl mx-auto space-y-6">
+                    <h2 class="text-3xl font-bold text-center text-blue-900 mb-8 underline decoration-yellow-400">Ответьте на вопросы</h2>
+                    <div id="quiz-box" class="space-y-4"></div>
                 </div>
             </div>
 
-            <!-- Tab 3: Speaking -->
-            <div id="speak" class="tab-content">
-                <div class="bg-amber-50 p-6 rounded-2xl border-2 border-amber-200">
-                    <h3 class="text-xl font-bold text-amber-900 mb-4 text-center">Xây dựng bài độc thoại cá nhân</h3>
-                    <p class="text-center text-amber-800 mb-6 italic">Hãy đóng vai người đang uống trà trên ban công và chọn các câu sau để tạo bài nói.</p>
-                    
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <button onclick="addSentence('Доброе утро! Я живу в этом голубом домике.')" class="w-full text-left p-3 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 transition">Chào buổi sáng! Tôi sống trong ngôi nhà xanh này.</button>
-                            <button onclick="addSentence('Сейчас утро, и я пью чай на балконе.')" class="w-full text-left p-3 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 transition">Bây giờ là buổi sáng, tôi đang uống trà trên ban công.</button>
-                            <button onclick="addSentence('У нас есть большой старый самовар.')" class="w-full text-left p-3 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 transition">Chúng tôi có một chiếc ấm Samovar cũ rất lớn.</button>
-                            <button onclick="addSentence('Я смотрю на улицу: там гуляют люди и собаки.')" class="w-full text-left p-3 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 transition">Tôi nhìn ra phố: ở đó mọi người và chó đang đi dạo.</button>
-                            <button onclick="addSentence('День сегодня очень тихий и солнечный.')" class="w-full text-left p-3 bg-white border border-amber-300 rounded-lg hover:bg-amber-100 transition">Hôm nay là một ngày rất yên tĩnh và đầy nắng.</button>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-md border-2 border-dashed border-amber-400 min-h-[200px]">
-                            <h4 class="font-bold text-amber-900 border-b pb-2 mb-4">Bài nói của bạn (Monolog):</h4>
-                            <div id="story-output" class="text-lg leading-relaxed text-slate-700 italic">Chưa có câu nào được chọn...</div>
-                            <button onclick="clearStory()" class="mt-4 text-sm text-red-500 font-bold hover:underline">Xóa làm lại</button>
-                        </div>
+            <div id="task3" class="tab-content">
+                <div class="max-w-4xl mx-auto bg-gray-50 p-8 rounded-[2rem] border-2 border-blue-100 shadow-inner">
+                    <h2 class="text-3xl font-bold text-center text-blue-900 mb-8 italic">О себе и своём дне</h2>
+                    <div id="chat-box" class="space-y-4 mb-8 h-80 overflow-y-auto p-4 bg-white rounded-2xl border"></div>
+                    <div id="chat-options" class="flex flex-wrap gap-3 justify-center"></div>
+                </div>
+            </div>
+
+            <div id="task4" class="tab-content">
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-yellow-50 p-8 rounded-[2rem] border-2 border-yellow-200">
+                        <h2 class="text-2xl font-bold text-blue-900 mb-4 italic">Конструктор монолога</h2>
+                        <div class="flex flex-col gap-2" id="phrase-list"></div>
+                    </div>
+                    <div class="bg-blue-900 text-white p-8 rounded-[2rem] shadow-2xl relative">
+                        <h2 class="text-xl font-bold mb-6 text-yellow-400 uppercase tracking-widest">Мой рассказ:</h2>
+                        <div id="final-monolog" class="text-lg leading-relaxed font-light min-h-[200px]">...</div>
+                        <button onclick="resetMonolog()" class="mt-8 text-xs text-blue-300 hover:text-white underline">Очистить всё</button>
                     </div>
                 </div>
             </div>
 
-        </div>
+        </main>
     </div>
 
     <script>
-        // Data
-        const questions = [
-            { q: "Ai đang uống trà trên ban công tầng hai?", a: ["Дети", "Мужчина и женщина", "Кошка"], c: 1 },
-            { q: "Có bao nhiêu cửa sổ ở tầng một mặt tiền?", a: ["Три", "Пять", "Четыре"], c: 0 },
-            { q: "Con vật nào xuất hiện ở góc dưới bên phải tranh?", a: ["Лошадь", "Птица", "Собака"], c: 2 },
-            { q: "Bầu không khí trong tranh như thế nào?", a: ["Шумная", "Спокойная", "Грустная"], c: 1 }
+        // Quiz Data (Task 2)
+        const quizData = [
+            { q: "Что вы видите картине «Голубой домик»?", a: ["Современный город", "Старый русский дом", "Пляж"], c: 1 },
+            { q: "Кто пьет чай на балконе второго этажа?", a: ["Дети", "Мужчина и женщина", "Кошка"], c: 1 },
+            { q: "Сколько окон мы видим на фасаде дома?", a: ["Три", "Пять", "Четыре"], c: 0 },
+            { q: "Какая атмосфера дня на этой картинке?", a: ["Шумная", "Спокойная и солнечная", "Грустная"], c: 1 }
         ];
 
-        // Functions
-        function openTab(id) {
+        // Chat Data (Task 3)
+        const chatSteps = [
+            { q: "Какое время дня вы считаете самым приятным и спокойным?", o: ["Утро", "День", "Вечер"] },
+            { q: "Что вы обычно делаете, чтобы расслабиться в конце дня?", o: ["Пью чай", "Читаю книгу", "Слушаю музыку"] },
+            { q: "Где в вашем доме вам нравится проводить свободное время?", o: ["На балконе", "В саду", "У окна"] }
+        ];
+
+        // Monolog Phrases (Task 4)
+        const phrases = [
+            "Сегодня прекрасное солнечное утро.",
+            "Я сижу на балконе нашего голубого домика и пью горячий чай.",
+            "На столе стоит красивый старый самовар.",
+            "Чай очень вкусный и ароматный.",
+            "С балкона я вижу наш сад и тихую улицу.",
+            "Внизу гуляют люди, а наша собака бегает во дворе.",
+            "Погода сегодня очень спокойная и тёплая.",
+            "Я очень люблю проводить время дома, это моё любимое время дня."
+        ];
+
+        function switchTab(id) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('nav button, .flex button').forEach(b => {
-                b.classList.remove('text-blue-700', 'border-blue-700', 'border-b-4');
-                b.classList.add('text-gray-500');
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('text-yellow-400', 'border-yellow-400');
+                b.classList.add('text-blue-200', 'border-transparent');
             });
             document.getElementById(id).classList.add('active');
-            document.getElementById('tab-' + id).classList.add('text-blue-700', 'border-blue-700', 'border-b-4');
-            document.getElementById('tab-' + id).classList.remove('text-gray-500');
-            if(id === 'quiz') loadQuiz();
+            document.getElementById('btn-' + id).classList.replace('text-blue-200', 'text-yellow-400');
+            document.getElementById('btn-' + id).classList.replace('border-transparent', 'border-yellow-400');
+            if(id==='task2') initQuiz();
+            if(id==='task3') initChat();
+            if(id==='task4') initMonolog();
         }
 
-        function showDef(rus, vie) {
-            document.getElementById('def-box').innerHTML = `
-                <div class="animate-bounce text-4xl font-black text-blue-700 mb-2">${rus}</div>
-                <div class="text-xl text-slate-600">${vie}</div>
+        function showWord(word, example) {
+            document.getElementById('word-display').innerHTML = `
+                <h3 class="text-5xl font-bold text-blue-900 mb-2">${word}</h3>
+                <p class="text-lg text-blue-700 italic">${example}</p>
             `;
         }
 
-        function loadQuiz() {
-            const area = document.getElementById('quiz-area');
-            area.innerHTML = questions.map((item, idx) => `
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <p class="font-bold text-lg mb-4 text-slate-800">${idx + 1}. ${item.q}</p>
-                    <div class="grid grid-cols-1 gap-2">
-                        ${item.a.map((opt, oIdx) => `
-                            <button onclick="checkAnswer(${idx}, ${oIdx})" id="btn-${idx}-${oIdx}" class="text-left p-3 rounded-xl border border-slate-200 hover:bg-blue-50 transition">
-                                ${opt}
-                            </button>
-                        `).join('')}
+        function initQuiz() {
+            const box = document.getElementById('quiz-box');
+            box.innerHTML = quizData.map((item, i) => `
+                <div class="bg-white p-6 rounded-2xl border shadow-sm">
+                    <p class="font-bold mb-4 text-blue-900">${i+1}. ${item.q}</p>
+                    <div class="grid gap-2">
+                        ${item.a.map((opt, oi) => `<button onclick="checkAnswer(${i}, ${oi})" id="q${i}a${oi}" class="text-left p-3 rounded-xl border hover:bg-blue-50 transition">${opt}</button>`).join('')}
                     </div>
                 </div>
             `).join('');
         }
 
-        function checkAnswer(qIdx, oIdx) {
-            const correct = questions[qIdx].c;
-            const btn = document.getElementById(`btn-${qIdx}-${oIdx}`);
+        function checkAnswer(qi, ai) {
+            const btn = document.getElementById(`q${qi}a${ai}`);
+            if(ai === quizData[qi].c) btn.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+            else btn.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+        }
+
+        let chatIdx = 0;
+        function initChat() {
+            chatIdx = 0;
+            document.getElementById('chat-box').innerHTML = "";
+            addBotMessage(chatSteps[0].q);
+            loadChatOptions();
+        }
+
+        function addBotMessage(text) {
+            document.getElementById('chat-box').innerHTML += `<div class="flex justify-start"><p class="bg-blue-100 text-blue-900 p-3 rounded-2xl rounded-tl-none max-w-[80%] shadow-sm">${text}</p></div>`;
+            const chatBox = document.getElementById('chat-box');
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function loadChatOptions() {
+            const optBox = document.getElementById('chat-options');
+            optBox.innerHTML = chatSteps[chatIdx].o.map(o => `<button onclick="nextChat('${o}')" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 shadow-md transition">${o}</button>`).join('');
+        }
+
+        function nextChat(ans) {
+            document.getElementById('chat-box').innerHTML += `<div class="flex justify-end"><p class="bg-yellow-400 text-blue-900 p-3 rounded-2xl rounded-tr-none max-w-[80%] shadow-sm">${ans}</p></div>`;
+            const chatBox = document.getElementById('chat-box');
+            chatBox.scrollTop = chatBox.scrollHeight;
+            chatIdx++;
             
-            // Reset others
-            questions[qIdx].a.forEach((_, i) => {
-                document.getElementById(`btn-${qIdx}-${i}`).className = "text-left p-3 rounded-xl border border-slate-200 hover:bg-blue-50 transition";
-            });
-
-            if(oIdx === correct) {
-                btn.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+            document.getElementById('chat-options').innerHTML = "";
+            if(chatIdx < chatSteps.length) {
+                setTimeout(() => { addBotMessage(chatSteps[chatIdx].q); loadChatOptions(); }, 600);
             } else {
-                btn.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+                setTimeout(() => { 
+                    addBotMessage("Спасибо за ваши ответы! Очень интересно."); 
+                    document.getElementById('chat-options').innerHTML = "<button onclick='initChat()' class='text-blue-900 font-bold underline'>Начать заново</button>";
+                }, 600);
             }
         }
 
-        let story = [];
-        function addSentence(s) {
-            if(!story.includes(s)) {
-                story.push(s);
-                updateStory();
+        function initMonolog() {
+            document.getElementById('phrase-list').innerHTML = phrases.map(p => `<button onclick="addToMonolog('${p}')" class="text-left p-3 bg-white border border-yellow-200 rounded-xl hover:bg-yellow-100 transition shadow-sm text-sm">${p}</button>`).join('');
+        }
+
+        let myStory = [];
+        function addToMonolog(p) {
+            if(!myStory.includes(p)) {
+                myStory.push(p);
+                document.getElementById('final-monolog').innerText = myStory.join(' ');
             }
         }
-        function updateStory() {
-            const out = document.getElementById('story-output');
-            out.innerHTML = story.length ? story.join(' ') : "Chưa có câu nào được chọn...";
+
+        function resetMonolog() { 
+            myStory = []; 
+            document.getElementById('final-monolog').innerText = "..."; 
         }
-        function clearStory() {
-            story = [];
-            updateStory();
-        }
+
     </script>
 </body>
 </html>
